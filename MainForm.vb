@@ -9,8 +9,19 @@ Public Class MainForm
 
     Private dbConnection As SqlConnection
 
-    ' ── Form Load: start async connection ───────────────────────────
+
+    Private Const AppPassword As String = "ADMIN_123!"
+
+    ' ── Form Load: check password, then start async connection ─────
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim input = InputBox("Enter password:", "DMC Verifier — Login")
+
+        If input <> AppPassword Then
+            MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Hand)
+            Close()
+            Return
+        End If
+
         lblStatusDB.Text = "Connecting..."
         lblStatusDB.ForeColor = Color.Orange
         ConnectAsync()
