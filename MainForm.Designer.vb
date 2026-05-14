@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class MainForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,19 +20,20 @@ Partial Class MainForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.txtBoxDMC = New System.Windows.Forms.TextBox()
         Me.lblDMC = New System.Windows.Forms.Label()
         Me.lblStatusDB = New System.Windows.Forms.Label()
-        Me.lblDBResponse = New System.Windows.Forms.Label()
+        Me.lblData = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblMessage = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtBoxDMC
         '
-        Me.txtBoxDMC.Location = New System.Drawing.Point(75, 57)
+        Me.txtBoxDMC.Location = New System.Drawing.Point(12, 57)
         Me.txtBoxDMC.Name = "txtBoxDMC"
         Me.txtBoxDMC.Size = New System.Drawing.Size(485, 20)
         Me.txtBoxDMC.TabIndex = 0
@@ -41,7 +42,7 @@ Partial Class MainForm
         '
         Me.lblDMC.AutoSize = True
         Me.lblDMC.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDMC.Location = New System.Drawing.Point(75, 37)
+        Me.lblDMC.Location = New System.Drawing.Point(12, 37)
         Me.lblDMC.Name = "lblDMC"
         Me.lblDMC.Size = New System.Drawing.Size(38, 17)
         Me.lblDMC.TabIndex = 1
@@ -57,13 +58,13 @@ Partial Class MainForm
         Me.lblStatusDB.TabIndex = 2
         Me.lblStatusDB.Text = "Status"
         '
-        'lblDBResponse
+        'lblData
         '
-        Me.lblDBResponse.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDBResponse.Location = New System.Drawing.Point(110, 91)
-        Me.lblDBResponse.Name = "lblDBResponse"
-        Me.lblDBResponse.Size = New System.Drawing.Size(450, 101)
-        Me.lblDBResponse.TabIndex = 3
+        Me.lblData.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblData.Location = New System.Drawing.Point(110, 91)
+        Me.lblData.Name = "lblData"
+        Me.lblData.Size = New System.Drawing.Size(387, 101)
+        Me.lblData.TabIndex = 3
         '
         'Label1
         '
@@ -85,14 +86,24 @@ Partial Class MainForm
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "Response DB:"
         '
+        'lblMessage
+        '
+        Me.lblMessage.AutoSize = True
+        Me.lblMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMessage.Location = New System.Drawing.Point(49, 37)
+        Me.lblMessage.Name = "lblMessage"
+        Me.lblMessage.Size = New System.Drawing.Size(0, 17)
+        Me.lblMessage.TabIndex = 6
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(632, 201)
+        Me.ClientSize = New System.Drawing.Size(512, 201)
+        Me.Controls.Add(Me.lblMessage)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.lblDBResponse)
+        Me.Controls.Add(Me.lblData)
         Me.Controls.Add(Me.lblStatusDB)
         Me.Controls.Add(Me.lblDMC)
         Me.Controls.Add(Me.txtBoxDMC)
@@ -107,7 +118,8 @@ Partial Class MainForm
     Friend WithEvents txtBoxDMC As TextBox
     Friend WithEvents lblDMC As Label
     Friend WithEvents lblStatusDB As Label
-    Friend WithEvents lblDBResponse As Label
+    Friend WithEvents lblData As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents lblMessage As Label
 End Class
