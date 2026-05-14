@@ -12,11 +12,58 @@ Public Class MainForm
 
     Private Const AppPassword As String = "ADMIN_123!"
 
+    ' ── Password dialog with masked input ─────────────────────────
+    Private Function ShowPasswordDialog() As String
+        Using dlg As New Form()
+            dlg.Text = "DMC Verifier — Login"
+            dlg.FormBorderStyle = FormBorderStyle.FixedDialog
+            dlg.MaximizeBox = False
+            dlg.MinimizeBox = False
+            dlg.StartPosition = FormStartPosition.CenterScreen
+            dlg.ClientSize = New Size(300, 120)
+            dlg.AcceptButton = Nothing
+
+            Dim lbl As New Label()
+            lbl.Text = "Enter password:"
+            lbl.Location = New Point(20, 20)
+            lbl.AutoSize = True
+
+            Dim txt As New TextBox()
+            txt.UseSystemPasswordChar = True
+            txt.Location = New Point(20, 45)
+            txt.Size = New Size(260, 22)
+
+            Dim btnOk As New Button()
+            btnOk.Text = "OK"
+            btnOk.DialogResult = DialogResult.OK
+            btnOk.Location = New Point(120, 80)
+
+            Dim btnCancel As New Button()
+            btnCancel.Text = "Cancel"
+            btnCancel.DialogResult = DialogResult.Cancel
+            btnCancel.Location = New Point(205, 80)
+
+            dlg.Controls.AddRange({lbl, txt, btnOk, btnCancel})
+
+            AddHandler txt.KeyDown, Sub(s, k)
+                                        If k.KeyCode = Keys.Enter Then
+                                            dlg.DialogResult = DialogResult.OK
+                                            dlg.Close()
+                                        End If
+                                    End Sub
+
+            If dlg.ShowDialog() = DialogResult.OK Then
+                Return txt.Text
+            End If
+            Return Nothing
+        End Using
+    End Function
+
     ' ── Form Load: check password, then start async connection ─────
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim input = InputBox("Enter password:", "DMC Verifier — Login")
+        Dim input = ShowPasswordDialog()
 
-        If input <> AppPassword Then
+        If input Is Nothing OrElse input <> AppPassword Then
             MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Hand)
             Close()
             Return
