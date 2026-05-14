@@ -8,6 +8,7 @@ A lightweight Windows Forms application for validating DMC (Data Matrix Code) va
 2. The user enters or scans a DMC value into the text box and presses **Enter**.
 3. The app sends the DMC as a JSON payload to the stored procedure.
 4. The stored procedure returns a JSON response indicating success or failure, which is displayed to the user.
+5. If database returns TotalCount = 0 the form background would become red, if TotalCount = 1 then background would be green else would be yellow, meaning multiple records with that DMC exist in the database.
 
 ## Prerequisites
 
