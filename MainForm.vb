@@ -1,15 +1,11 @@
 Imports System.Data.SqlClient
+Imports System.IO
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class MainForm
 
-    Private Const ConnString As String =
-        "Server=10.199.200.101\SQLEXPRESS,1433;Database=Sandbox;User Id=user;Password=user;"
-
     Private dbConnection As SqlConnection
-
-
     Private Const AppPassword As String = "ADMIN_123!"
 
     ' ── Password dialog with masked input ─────────────────────────
@@ -61,13 +57,14 @@ Public Class MainForm
 
     ' ── Form Load: check password, then start async connection ─────
     Private Sub MainForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim input = ShowPasswordDialog()
+        ' Uncomment the following lines to enable password protection on startup
+        'Dim input = ShowPasswordDialog()
 
-        If input Is Nothing OrElse input <> AppPassword Then
-            MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Hand)
-            Close()
-            Return
-        End If
+        'If input Is Nothing OrElse input <> AppPassword Then
+        '    MessageBox.Show("Incorrect password.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Hand)
+        '    Close()
+        '    Return
+        'End If
 
         lblStatusDB.Text = "Connecting..."
         lblStatusDB.ForeColor = Color.Orange
@@ -84,7 +81,15 @@ Public Class MainForm
     ' ── Async connect and update status label ───────────────────────
     Private Async Sub ConnectAsync()
         Try
-            dbConnection = New SqlConnection(ConnString)
+            Dim path = IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "settings.json")
+            If Not IO.File.Exists(path) Then
+                Throw New FileNotFoundException($"Settings file not found: {path}")
+            End If
+            Dim json = IO.File.ReadAllText(path)
+            Dim settings = JsonConvert.DeserializeObject(Of AppSettings)(json)
+            If String.IsNullOrEmpty(settings?.SqlConnectionString) Then Return
+
+            dbConnection = New SqlConnection(settings.SqlConnectionString)
             Await dbConnection.OpenAsync()
             UpdateConnectionLabel()
         Catch ex As Exception
@@ -227,4 +232,8 @@ End Class
 Public Class DataItem
     <JsonExtensionData>
     Public Property Extra As IDictionary(Of String, JToken)
+End Class
+
+Public Class AppSettings
+    Public Property SqlConnectionString As String = ""
 End Class
