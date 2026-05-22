@@ -87,7 +87,9 @@ Public Class MainForm
             End If
             Dim json = IO.File.ReadAllText(path)
             Dim settings = JsonConvert.DeserializeObject(Of AppSettings)(json)
-            If String.IsNullOrEmpty(settings?.SqlConnectionString) Then Return
+            If String.IsNullOrEmpty(settings?.SqlConnectionString) Then
+                Throw New InvalidDataException("settings.json is missing SqlConnectionString.")
+            End If
 
             dbConnection = New SqlConnection(settings.SqlConnectionString)
             Await dbConnection.OpenAsync()
